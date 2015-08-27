@@ -1,0 +1,12 @@
+entity.oauth2_server.edit_form:
+  title: 'Edit'
+  route_name: entity.oauth2_server.edit_form
+  base_route: entity.oauth2_server.edit_form
+entity.oauth2_server.scopes:
+  title: 'Scopes'
+  route_name: entity.oauth2_server.scopes
+  base_route: entity.oauth2_server.edit_form
+entity.oauth2_server.clients:
+  title: 'Clients'
+  route_name: entity.oauth2_server.clients
+  base_route: entity.oauth2_server.edit_form

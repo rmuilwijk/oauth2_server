@@ -1,0 +1,10 @@
+{
+  "name": "drupal/oauth2_server",
+  "description": "Provides OAuth2 server functionality.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "require": {
+    "bshaffer/oauth2-server-php": "~1.7",
+    "bshaffer/oauth2-server-httpfoundation-bridge": "~1.1"
+  }
+}

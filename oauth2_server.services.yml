@@ -1,0 +1,4 @@
+services:
+  oauth2_server.storage:
+    class: Drupal\oauth2_server\OAuth2Storage
+    arguments: ['@entity.manager', '@password', '@module_handler']

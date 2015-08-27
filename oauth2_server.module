@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ */
+function oauth2_server_cron() {
+  // Delete expired tokens.
+  $query = \Drupal::entityQuery('oauth2_server_token');
+  $query->condition('expires', 0, '<>');
+  $query->condition('expires', REQUEST_TIME, '<=');
+  $result = $query->execute();
+  if ($result) {
+    // @todo, is there a method to delete without loading?
+    $tokens = \Drupal::entityManager()->getStorage('oauth2_server_token')->loadMultiple(array_keys($result));
+    \Drupal::entityManager()->getStorage('oauth2_server_token')->delete($tokens);
+  }
+
+  // Regenerate the keys once a day. Follows Google's practice described in
+  // https://developers.google.com/accounts/docs/OAuth2Login#validatinganidtoken
+  $needs_keys = \Drupal\oauth2_server\Utility::siteNeedsKeys();
+  // No need to do anything if hook_cron() is invoked from simpletest.
+  if ($needs_keys) {
+    $last_generated = \Drupal::state()->get('oauth2_server.last_generated', 0);
+    // Check if the keys were last generated more than 23h30min ago.
+    if (REQUEST_TIME - $last_generated > 84600) {
+      $keys = oauth2_server_generate_keys();
+      variable_set('oauth2_server_keys', $keys);
+      variable_set('oauth2_server_keys_last_generated', REQUEST_TIME);
+      \Drupal::state()->set('oauth2_server.last_generated', REQUEST_TIME);
+    }
+  }
+}

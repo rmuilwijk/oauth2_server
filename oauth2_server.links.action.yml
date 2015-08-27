@@ -1,0 +1,17 @@
+oauth2_server.add:
+  route_name: entity.oauth2_server.add_form
+  title: 'Add Server'
+  appears_on:
+    - oauth2_server.overview
+
+oauth2_server.scope.add:
+  route_name: entity.oauth2_server.scopes.add_form
+  title: 'Add scope'
+  appears_on:
+    - entity.oauth2_server.scopes
+
+oauth2_server.client.add:
+  route_name: entity.oauth2_server.clients.add_form
+  title: 'Add client'
+  appears_on:
+    - entity.oauth2_server.clients

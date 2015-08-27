@@ -1,0 +1,8 @@
+name: OAuth2 Server
+type: module
+description: 'Provides OAuth2 server functionality.'
+package: OAuth2
+core: 8.x
+configure: oauth2_server.overview
+dependencies:
+ - entity_reference

@@ -1,0 +1,6 @@
+oauth2_server_test.resource:
+  path: '/oauth2_test/resource/{oauth2_server_scope}'
+  defaults:
+    _controller: 'Drupal\oauth2_server_test\Controller\ResourceController::test'
+  requirements:
+    _permission: 'use oauth2 server'

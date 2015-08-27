@@ -1,0 +1,141 @@
+# Schema for the configuration files of the oauth2_server module.
+
+oauth2_server.oauth:
+  type: config_object
+  label: 'OAuth2 Server settings'
+  mapping:
+    user_sub_property:
+      type: string
+      label: 'Property of user object to use'
+
+oauth2_server.server.*:
+  type: config_entity
+  label: 'OAuth2 Server'
+  mapping:
+    name:
+      type: label
+      label: 'Name'
+    server_id:
+      type: string
+      label: 'Machine-readable name'
+    module:
+      type: string
+      label: 'The name of the providing module.'
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        default_scope:
+          type: string
+          label: 'Default scope'
+        enforce_state:
+          type: boolean
+          label: 'Enforce state'
+        allow_implicit:
+          type: boolean
+          label: 'Allow Implicit'
+        use_openid_connect:
+          type: boolean
+          label: 'Use OpenID Connect'
+        use_crypto_tokens:
+          type: boolean
+          label: 'Use crypto tokens'
+        store_encrypted_token_string:
+          type: boolean
+          label: 'Store encrypted token string'
+        grant_types:
+          type: sequence
+          label: 'Grant types'
+          sequence:
+            type: string
+            label: 'Grant type'
+        always_issue_new_refresh_token:
+          type: boolean
+          label: 'Always issue new refresh token'
+        unset_refresh_token_after_use:
+          type: boolean
+          label: 'Unset (delete) the refresh token after it has been used'
+        advanced_settings:
+          type: mapping
+          label: 'Advanced Settings'
+          mapping:
+            access_lifetime:
+              type: integer
+              label: 'Access lifetime'
+            id_lifetime:
+              type: integer
+              label: 'ID lifetime'
+            refresh_token_lifetime:
+              type: integer
+              label: 'Refresh token lifetime'
+            require_exact_redirect_uri:
+              type: boolean
+              label: 'Require exact redirect uri'
+
+oauth2_server.scope.*:
+  type: config_entity
+  label: 'OAuth2 Server scope'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    scope_id:
+      type: string
+      label: 'Scope ID'
+    server_id:
+      type: string
+      label: 'Server ID'
+    description:
+      type: string
+      label: 'Description'
+
+oauth2_server.client.*:
+  type: config_entity
+  label: 'OAuth2 Server client'
+  mapping:
+    client_id:
+      type: string
+      label: 'Client ID'
+    server_id:
+      type: string
+      label: 'Server ID'
+    description:
+      type: string
+      label: 'Description'
+    name:
+      type: label
+      label: 'Name'
+    client_secret:
+      type: string
+      label: 'Client Secret'
+    public_key:
+      type: string
+      label: 'Public Key'
+    redirect_uri:
+      type: string
+      label: 'Redirect Uri'
+    automatic_authorization:
+      type: boolean
+      label: 'Automatic Authorization'
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        override_grant_types:
+          type: boolean
+          label: 'Override Grant types'
+        allow_implicit:
+          type: boolean
+          label: 'Allow Implicit'
+        always_issue_new_refresh_token:
+          type: boolean
+          label: 'Always issue new refresh token'
+        unset_refresh_token_after_use:
+          type: boolean
+          label: 'Unset (delete) the refresh token after it has been used'
+        grant_types:
+          type: sequence
+          label: 'Grant types'
+          sequence:
+            type: string
+            label: 'Grant type'

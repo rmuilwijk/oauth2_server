@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Support module for OAuth2 Server testing.
+ */
+
+use \Drupal\oauth2_server\Serverinterface;
+
+/**
+ * Implements hook_oauth2_server_user_claims_alter().
+ */
+function oauth2_server_test_oauth2_server_user_claims_alter(&$context) {
+  if (in_array('phone', $context['requested_scopes'])) {
+    $context['claims']['phone_number'] = '123456';
+    $context['claims']['phone_number_verified'] = FALSE;
+  }
+}
+
+/**
+ * Implements oauth2_server_default_scope().
+ */
+function oauth2_server_test_oauth2_server_default_scope(ServerInterface $server) {
+  // Grant "basic" and "admin" scopes by default.
+  if ($server->id() == 'test_server') {
+    return array('basic', 'admin');
+  }
+}
+
+/**
+ * Implements hook_oauth2_server_scope_access_alter().
+ */
+function oauth2_server_test_oauth2_server_scope_access_alter(&$context) {
+  if ($context['server']->id() == 'test_server') {
+    // We have to loop through the scopes because the actual ids are
+    // prefixed with the server id.
+    foreach ($context['scopes'] as $id => $scope) {
+      if ($scope->scope_id == 'forbidden') {
+        unset($context['scopes'][$id]);
+      }
+    }
+  }
+}

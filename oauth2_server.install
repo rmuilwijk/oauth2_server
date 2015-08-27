@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ */
+function oauth2_server_requirements($phase) {
+  $ret = array();
+
+  if ($phase == 'runtime') {
+    $found = class_exists('OAuth2\Server');
+
+    $description = \Drupal::translation()->translate('The OAuth2 server library is required for the OAuth2 module to function.
+      Download the library using composer, downoad it from <a href="https://github.com/bshaffer/oauth2-server-php" target="_blank">GitHub</a>  or use composer manager.');
+
+    $ret['oauth2'] = array(
+      'title' => \Drupal::translation()->translate('OAuth2 server library'),
+      'value' => $found ? \Drupal::translation()->translate('Available') :\Drupal::translation()->translate('Unavailable'),
+      'description' => !$found ? $description : NULL,
+      'severity' => $found ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+    );
+  }
+
+  return $ret;
+}
+
+
+// Upgrade path
+// * variable oauth2_server_user_sub_property to config oauth2_server.oauth::user_sub_property
+// * upgrade variables keys, last_generated and next_certificate_id to states
+// * upgrade entities

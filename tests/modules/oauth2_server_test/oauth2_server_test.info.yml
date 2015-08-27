@@ -1,0 +1,6 @@
+name: 'OAuth2 Server test'
+type: module
+description: 'Provides test helpers for OAuth2 Server module.'
+package: Testing
+version: VERSION
+core: 8.x

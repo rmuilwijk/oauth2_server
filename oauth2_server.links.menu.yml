@@ -1,0 +1,5 @@
+oauth2_server.overview:
+  title: 'OAuth2 Servers'
+  parent: system.admin_structure
+  description: 'Manage servers and their associated clients and scopes.'
+  route_name: oauth2_server.overview

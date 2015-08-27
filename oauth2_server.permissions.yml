@@ -1,0 +1,6 @@
+'administer oauth2 server':
+  title: 'Administer OAuth2 Server'
+  description: 'Manage servers, scopes, and clients.'
+'use oauth2 server':
+  title: 'Use OAuth2 Server'
+  description: 'Use OAuth2 Server for authorization.'
