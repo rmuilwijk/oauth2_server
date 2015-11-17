@@ -57,7 +57,7 @@ class OAuth2Controller extends ControllerBase {
     if ($this->currentUser()->isAnonymous()) {
       $_SESSION['oauth2_server_authorize'] = $bridgeRequest;
 
-      $url = new Url('user.login');
+      $url = new Url('user.login', [], ['query' => ['destination' => 'oauth2/authorize']]);
       $url->setAbsolute(TRUE);
 
       return new RedirectResponse($url->toString());
@@ -69,8 +69,8 @@ class OAuth2Controller extends ControllerBase {
     }
 
     $client = FALSE;
-    if ($request->get('client_id')) {
-      $clients = $this->entityManager()->getStorage('oauth2_server_client')->loadByProperties(['client_id' => $request->get('client_id')]);
+    if ($bridgeRequest->get('client_id')) {
+      $clients = $this->entityManager()->getStorage('oauth2_server_client')->loadByProperties(['client_id' => $bridgeRequest->get('client_id')]);
       if ($clients) {
         /** @var \Drupal\oauth2_server\ClientInterface $client */
         $client = reset($clients);

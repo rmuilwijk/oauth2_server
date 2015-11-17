@@ -23,9 +23,8 @@ function oauth2_server_cron() {
     $last_generated = \Drupal::state()->get('oauth2_server.last_generated', 0);
     // Check if the keys were last generated more than 23h30min ago.
     if (REQUEST_TIME - $last_generated > 84600) {
-      $keys = oauth2_server_generate_keys();
-      variable_set('oauth2_server_keys', $keys);
-      variable_set('oauth2_server_keys_last_generated', REQUEST_TIME);
+      $keys = \Drupal\oauth2_server\Utility::generateKeys();
+      \Drupal::state()->set('oauth2_server.keys', $keys);
       \Drupal::state()->set('oauth2_server.last_generated', REQUEST_TIME);
     }
   }

@@ -465,10 +465,11 @@ class OAuth2Storage implements OAuth2StorageInterface {
     }
 
     // Allow modules to supply additional claims.
-    $claims += $this->moduleHandler->invokeAll('oauth2_server_user_claims', [
+    $args = [
       'account' => $account,
       'requested_scopes' => $requested_scopes
-    ]);
+    ];
+    $claims += $this->moduleHandler->invokeAll('oauth2_server_user_claims', $args);
 
     // Finally, allow modules to alter claims.
     $context = [
